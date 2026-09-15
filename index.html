@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trello To-Do Board</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="toolbar" aria-label="Trello connection">
+        <div>
+          <p class="eyebrow">Trello-powered tasks</p>
+          <h1>To-do board</h1>
+        </div>
+        <div class="status-pill" id="syncStatus">Not connected</div>
+      </section>
+
+      <section class="setup-panel" aria-label="Trello setup">
+        <form id="settingsForm" class="settings-grid">
+          <label>
+            API key
+            <input id="apiKey" name="apiKey" type="password" autocomplete="off" required />
+          </label>
+          <label>
+            Token
+            <input id="token" name="token" type="password" autocomplete="off" required />
+          </label>
+          <label>
+            Board ID or short link
+            <input id="boardId" name="boardId" type="text" placeholder="e.g. abcd1234" required />
+          </label>
+          <label>
+            Refresh
+            <select id="refreshMs" name="refreshMs">
+              <option value="15000">Every 15 seconds</option>
+              <option value="30000" selected>Every 30 seconds</option>
+              <option value="60000">Every minute</option>
+            </select>
+          </label>
+          <div class="form-actions">
+            <button type="submit">Connect</button>
+            <button type="button" class="secondary" id="disconnectButton">Disconnect</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="board-controls" aria-label="Board lists">
+        <label>
+          Ticket list
+          <select id="sourceList"></select>
+        </label>
+        <label>
+          Done list
+          <select id="doneList"></select>
+        </label>
+        <button type="button" class="secondary" id="refreshButton">Refresh now</button>
+      </section>
+
+      <section class="task-layout">
+        <div class="task-header">
+          <div>
+            <h2>Incoming tickets</h2>
+            <p id="taskCount">Connect a Trello board to begin.</p>
+          </div>
+          <button type="button" id="addTicketButton">Add ticket</button>
+        </div>
+
+        <form id="addTicketForm" class="add-ticket-form" hidden>
+          <label>
+            Title
+            <input id="newTicketTitle" name="newTicketTitle" type="text" required />
+          </label>
+          <label>
+            Notes
+            <textarea id="newTicketNotes" name="newTicketNotes" rows="3"></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="submit">Create in Trello</button>
+            <button type="button" class="secondary" id="cancelAddTicketButton">Cancel</button>
+          </div>
+        </form>
+
+        <div id="emptyState" class="empty-state">
+          No tickets yet. Add a card to your selected Trello list and it will show up here automatically.
+        </div>
+        <ul id="taskList" class="task-list" aria-live="polite"></ul>
+      </section>
+    </main>
+
+    <template id="taskTemplate">
+      <li class="task-card">
+        <div class="task-main">
+          <button class="complete-button" type="button" aria-label="Mark complete"></button>
+          <div>
+            <h3></h3>
+            <p class="task-description"></p>
+            <div class="task-meta"></div>
+          </div>
+        </div>
+        <a class="open-card" target="_blank" rel="noreferrer">Open</a>
+      </li>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

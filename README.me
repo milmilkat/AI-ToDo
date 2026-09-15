@@ -1,0 +1,29 @@
+# Trello To-Do Board
+
+A small browser app that turns Trello cards into a live to-do list.
+
+## How it works
+
+- Connect with a Trello API key, token, and board ID.
+- Pick the Trello list that contains new tickets.
+- The app polls Trello automatically and shows new cards as to-do items.
+- Marking an item done moves the Trello card to your configured done list.
+
+## Run locally
+
+Open `index.html` directly in a browser, or serve the folder:
+
+```bash
+npx serve . --listen 4173
+```
+
+Then open `http://localhost:4173`.
+
+## Trello setup
+
+1. Get an API key from <https://trello.com/app-key>.
+2. Generate a token from the same page.
+3. Open your Trello board and copy the board ID or short link from the URL.
+4. Paste those values into the app and click **Connect**.
+
+The app stores credentials in your browser's local storage only. For a team or production app, put the token exchange and Trello calls behind a small backend instead of exposing tokens in the browser.
